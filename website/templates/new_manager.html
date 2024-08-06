@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='ZEDOC.png') }}">
+    <title>ZEDOC</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <style>
+        :root {
+            --primary-color: #570f74;
+            --secondary-color: #be8ffc;
+            --background-color: #f2f2f2;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .top-bar {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .top-bar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .main-header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .main-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'><path fill='%23570f74' fill-opacity='0.4' d='M0,160L30,170.7C60,181,120,203,180,192C240,181,300,139,360,122.7C420,107,480,117,540,133.3C600,149,660,171,720,176C780,181,840,171,900,154.7C960,139,1020,117,1080,106.7C1140,96,1200,96,1260,106.7C1320,117,1380,139,1410,154.7L1440,160L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z'></path></svg>");
+            background-size: cover;
+            filter: brightness(0.5);
+            z-index: -1;
+        }
+
+        .main-header h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .main-header p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 40rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .main-content {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .upload-box {
+            text-align: center;
+            padding: 2rem;
+            background-color: #fff;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 500px; /* Reduced height */
+        }
+
+        .upload-box__title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .upload-box__description {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .upload-box__form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .upload-box__input {
+            display: none;
+        }
+
+        .upload-box__button {
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-box__button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .upload-box__submit-button {
+            display: block;
+            margin: 1rem auto;
+            padding: 0.5rem 2rem;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .upload-box__submit-button:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .upload-box__view-button {
+            display: block;
+            margin: 2rem auto;
+            padding: 0.5rem 2rem;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .upload-box__view-button:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        footer {
+            background-color: #570f74;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .below {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .below a {
+            color: #512da8;
+            text-decoration: none;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .below a:hover {
+            color: #be8ffc;
+        }
+
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 3rem;
+            }
+
+            .main-header p {
+                font-size: 1.2rem;
+                max-width: 20rem;
+                text-align: center;
+            }
+
+            .card {
+                margin-bottom: 1rem;
+            }
+
+            .card a {
+                display: block;
+                color: #512da8;
+                font-weight: bold;
+                text-decoration: none;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar container">
+        <a href="/dashboard">Home</a>
+        <a href="/file_list">Manager</a>
+        <a href="/upload">Uploader</a>
+        <a href="/process">Close AI</a>
+        <a href="/login">Logout</a>
+    </div>
+    <div class="main-header container">
+        <h1>Welcome to ZEDOC</h1>
+        <p>Where coding is an art and innovation is the masterpiece.</p>
+    </div>
+    <main class="main">
+        <section class="upload-box">
+            <h2 class="upload-box__title">Upload Files</h2>
+            <p class="upload-box__description">Select a file to upload to your space.</p>
+            <form method="POST" action="/upload" enctype="multipart/form-data" class="upload-box__form">
+                <label for="file-input" class="upload-box__button">Choose File</label>
+                <input type="file" name="file" id="file-input" class="upload-box__input">
+                <button type="submit" class="upload-box__submit-button">Upload</button>
+            </form>
+            <a href="{{ url_for('views.file_list') }}" class="upload-box__view-button">View Uploaded Files</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 ZEDOC. All rights reserved.</p>
+    </footer>
+</body>
+</html>

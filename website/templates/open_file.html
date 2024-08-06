@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ filename }}</title>
+</head>
+<body>
+    <h1>File: {{ filename }}</h1>
+    <hr>
+    {% if filename.endswith('.jpg') or filename.endswith('.jpeg') or filename.endswith('.png') or filename.endswith('.gif') %}
+        <img src="data:image/jpeg;base64,{{ contents }}" alt="{{ filename }}">
+    {% elif filename.endswith('.txt') or filename.endswith('.pdf') or filename.endswith('.doc') or filename.endswith('.docx') %}
+        <form action="/open/{{ filename }}" method="POST">
+            <textarea name="file_content" rows="20" cols="80">{{ contents }}</textarea><br>
+            <input type="submit" value="Save Changes">
+        </form>
+    {% else %}
+        <p>Unsupported file type. <a href="{{ url_for('views.download_file', filename=filename) }}">Download</a></p>
+    {% endif %}
+</body>
+</html>

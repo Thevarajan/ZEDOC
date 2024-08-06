@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <!--Thevarajan.R.M; CH.EN.U4CSE22154-->
+  <head>
+    <title>Calendar</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        background-color: aqua;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      function day_title(monthName) {
+        var dayTitle = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        var table = document.getElementById("calendar");
+        var row = table.insertRow(index);
+        var cell = row.insertCell(0);
+        cell.colspan = 7;
+        cell.innerHTML = monthName;
+        row = table.insertRow(index + 1);
+        for (var i = 0; i < 7; i++) {
+          var cell = row.insertCell(i);
+          cell.innerHTML = dayTitle[i];
+        }
+      }
+      function fill_table(len, fill_start) {
+        var table = document.getElementById("calendar");
+        var count = 1;
+        var row_count = 0;
+        var condition = 0;
+        for (var i = 0; i < 7; i++) {
+          if (condition == 2) {
+            break;
+          }
+          row = table.insertRow(index + i + 2);
+          for (var j = 0; j < 7; j++) {
+            var cell = row.insertCell(j);
+            if (
+              (count <= len && condition == 1) ||
+              (fill_start == j && condition == 0)
+            ) {
+              cell.innerHTML = count;
+              count++;
+              condition = 1;
+              if (count > len) {
+                condition = 2;
+              }
+            }
+          }
+        }
+        index += i + 2;
+      }
+      function getMonthName(month) {
+        var monthNames = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        return monthNames[month];
+      }
+      function generateCalendar() {
+        var year = prompt("Please enter the year:");
+        var table = document.createElement("table");
+        table.id = "calendar";
+        document.body.appendChild(table);
+        for (var month = 0; month < 12; month++) {
+          var len = new Date(year, month + 1, 0).getDate();
+          var monthName = getMonthName(month);
+          var day_1 = new Date(year, month).getDay();
+          day_title(monthName);
+          fill_table(len, day_1);
+        }
+      }
+      let index = 0;
+      generateCalendar();
+    </script>
+  </body>
+</html>

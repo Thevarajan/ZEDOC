@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ZEDOC</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='ZEDOC.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='87215.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        li {
+            float: left;
+        }
+        .files1 {
+            float: center;
+        }
+        .top {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        li a {
+            display: block;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: xx-large;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border: 3.5px solid black;
+            color: #000000;
+            background-color: rgba(170, 85, 255, 0.7);
+            background-image: url("{{ url_for('static', filename='base_top.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .fa {
+            padding: 20px;
+            font-size: 30px;
+            width: 48px;
+            height: 24px;
+            text-align: center;
+            text-decoration: none;
+            float: right;
+        }
+        .fa:hover {
+            opacity: 0.7;
+        }
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+        .fa-twitter {
+            background: #55ACEE;
+            color: white;
+        }
+        .fa-google {
+            background: #dd4b39;
+            color: white;
+        }
+        .fa-linkedin {
+            background: #007bb5;
+            color: white;
+        }
+        .fa-instagram {
+            background: hotpink;
+            color: white;
+        }
+        .nav {
+            overflow: hidden;
+            background-color: #570f74;
+            border-bottom: 3.5px solid black;
+        }
+        .nav a {
+            float: left;
+            display: block;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .nav a:hover {
+            background-color: #e29df5;
+            color: black;
+        }
+        .nav-right {
+            float: right;
+        }
+        .upload-box {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(170, 85, 255, 0.7);
+            border: 3px solid black;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul class="top">
+            <li><img src="{{ url_for('static', filename='ZEDOC.png') }}" height="70"></li>
+            <li class="list"><a href="#home"><b>"BELIEVE YOU CAN AND YOU'RE HALFWAY THERE."</b></a></li>
+            <li><a href="#" class="fa fa-facebook"></a>
+            <li><a href="#" class="fa fa-twitter"></a>
+            <li><a href="#" class="fa fa-google"></a>
+            <li><a href="#" class="fa fa-linkedin"></a>
+            <li><a href="#" class="fa fa-instagram"></a>
+        </ul>
+    </div>
+    <div class="nav">
+        <a href="/dashboard">Home</a>
+        <a href="/file_list">Social</a>
+        <a href="/upload">Your space</a>
+        <a href="/process">Analyser</a>
+        <div class="nav-right">
+            <a style="background-color: #be8ffc; columns: rgb(0, 0, 0);" href="/login">Logout</a>
+        </div>
+    </div>
+    <div class="upload-box">
+        <h1>Upload Files</h1>
+        <p>Select a file to upload to your space.</p>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file" style="margin: 10px 0;">
+            <input type="submit" value="Upload">
+        </form>
+        <p>Already uploaded files? <a href="{{ url_for('views.file_list') }}">View Uploaded Files</a></p>
+    </div>
+</body>
+</html>

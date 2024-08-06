@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='ZEDOC.png') }}">
+    <title>ZEDOC</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .top-bar {
+            background: linear-gradient(90deg, #570f74 0%, #be8ffc 100%);
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-bar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin-right: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .top-bar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .main-header {
+            background-color: #570f74;
+            color: #fff;
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .main-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'><path fill='%23570f74' fill-opacity='0.4' d='M0,160L30,170.7C60,181,120,203,180,192C240,181,300,139,360,122.7C420,107,480,117,540,133.3C600,149,660,171,720,176C780,181,840,171,900,154.7C960,139,1020,117,1080,106.7C1140,96,1200,96,1260,106.7C1320,117,1380,139,1410,154.7L1440,160L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z'></path></svg>");
+            background-size: cover;
+            filter: brightness(0.5);
+            z-index: -1;
+        }
+
+        .main-header h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .main-header p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 40rem;
+        }
+
+        .main-content {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #512da8;
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card a {
+            display: block;
+            color: #512da8;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        footer {
+            background-color: #570f74;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'><path fill='%23570f74' fill-opacity='0.4' d='M0,160L30,170.7C60,181,120,203,180,192C240,181,300,139,360,122.7C420,107,480,117,540,133.3C600,149,660,171,720,176C780,181,840,171,900,154.7C960,139,1020,117,1080,106.7C1140,96,1200,96,1260,106.7C1320,117,1380,139,1410,154.7L1440,160L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z'></path></svg>");
+            background-size: cover;
+            filter: brightness(0.5);
+            z-index: -1;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .below {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .below a {
+            color: #512da8;
+            text-decoration: none;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .below a:hover {
+            color: #be8ffc;
+        }
+
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 3rem;
+            }
+
+            .main-header p {
+                font-size: 1.2rem;
+                max-width: 20rem;
+                text-align: center;
+            }
+
+            .card {
+                margin-bottom: 1rem;
+            }
+
+            .card a {
+                display: block;
+                color: #512da8;
+                font-weight: bold;
+                text-decoration: none;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="/dashboard">Home</a>
+        <a href="/file_list">Manager</a>
+        <a href="/upload">Uploader</a>
+        <a href="/process">Close AI</a>
+        <a href="/login">Logout</a>
+    </div>
+    <div class="main-header">
+        <h1>Welcome to ZEDOC</h1>
+        <p style="text-align: center;">Where coding is an art and innovation is the masterpiece.</p>
+    </div>
+    <div class="main-content">
+        <div class="card">
+            <h2>Manage files</h2>
+            <p>Explore and download files uploaded.</p>
+            <a href="/file_list">Go to Manager</a>
+        </div>
+        <div class="card">
+            <h2>Your Space</h2>
+            <p>Upload and manage your codes in the database.</p>
+            <a href="/upload">Go to Uploader</a>
+        </div>
+        <div class="card">
+            <h2>AI for your works</h2>
+            <p>Analyze, create, edit and correct your code with Close-AI.</p>
+            <a href="/process">Go to Close AI</a>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 ZEDOC. All rights reserved.</p>
+    </footer>
+</body>
+</html>
